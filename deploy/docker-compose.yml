@@ -2,13 +2,13 @@ version: "3.8"
 services:
 
   mongodb:
-    image: mongo:5.0.2
+    image: mongo:4.4
     container_name: mongo
     restart: unless-stopped 
     environment:
       MONGO_INITDB_DATABASE: db
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: 123456
+      MONGO_INITDB_ROOT_USERNAME: miguel
+      MONGO_INITDB_ROOT_PASSWORD: miguel
     command: mongod --auth 
     volumes:
       - db:/data/db

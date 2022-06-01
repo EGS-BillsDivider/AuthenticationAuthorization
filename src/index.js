@@ -10,7 +10,7 @@ const postRoute = require('./routes/posts');
 dotenv.config();
 
 //Connect to DB
-mongoose.connect(process.env.DB_CONNECT, () => console.log('connected to DB!'));
+mongoose.connect(process.env.DOCKER_DB, {useNewUrlParser: true, useUnifiedTopology: true}, () => console.log('connected to DB!'));
 
 app.set('view-engine', 'ejs')
 
