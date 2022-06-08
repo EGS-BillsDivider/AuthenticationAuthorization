@@ -2,12 +2,12 @@ const router = require('express').Router();
 const User = require('../model/user');
 const verify = require('./verifytoken');
 
-router.get('/', verify, (req, res) => {
-    res.send(req.user);    
-
-    // Example of getting a single user id
-    // User.findOne({_id: req.user});
+router.get('/verifyuser', verify, async (req, res) => {
     
+    res.json({
+        message: 'Logged In Successfully',
+    })
+    res.status(200)
 });
 
 module.exports = router;
