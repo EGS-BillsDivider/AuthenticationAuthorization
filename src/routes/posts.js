@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('../model/user');
 const verify = require('./verifytoken');
 
-router.get('/verifyuser', verify, async (req, res) => {
+router.get('/verifyUser', verify, async (req, res) => {
     
     res.json({
         message: 'Logged In Successfully',
