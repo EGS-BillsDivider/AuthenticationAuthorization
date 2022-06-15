@@ -1,4 +1,4 @@
-#To build: sudo docker build -t registry.deti:5000/billsdivider/bdapi:v1 -f deploy/Dockerfile.db .
+#To build: sudo docker build -t registry.deti:5000/billsdivider/bdapi:v1 -f deploy/Dockerfile.api .
 #To add to registry: sudo docker push registry.deti:5000/billsdivider/bdapi:v1
 
 FROM node:18
@@ -11,7 +11,7 @@ WORKDIR /src
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY ./src/package.json ./src/package-lock.json ./
-COPY ./src/index.js ./src/validation.js ./src/routes/ ./src/node_modules/ ./src/model/ ./src/views/ ./src/.env ./src/
+COPY ./src/index.js ./src/validation.js ./src/routes/ ./src/model/ ./src/views/ ./src/.env ./src/
 
 RUN npm install
    
@@ -20,4 +20,4 @@ RUN npm install
 
 COPY ./src .
 
-CMD npm start
+ENTRYPOINT npm start
