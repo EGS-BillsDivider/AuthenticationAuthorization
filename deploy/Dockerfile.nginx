@@ -1,0 +1,5 @@
+#To build: sudo docker build -t registry.deti:5000/billsdivider/nginx-proxy-bdapi:v1 -f deploy/Dockerfile.db .
+#To add to registry: sudo docker push registry.deti:5000/billsdivider/nginx-proxy-bdapi:v1
+
+FROM nginx
+COPY nginx.conf /etc/nginx/nginx.conf

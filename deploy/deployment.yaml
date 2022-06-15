@@ -1,0 +1,144 @@
+# Create mongo persistent claim
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pv-claim
+  namespace: mikenogs
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 500Mi
+
+
+# Create database deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bdbd-mongo
+  namespace: mikenogs
+spec:
+  selector:
+    matchLabels:
+      app: bdbd-mongo
+  template:
+    metadata:
+      labels:
+        app: bdbd-mongo
+    spec:
+      containers:
+      - name: mongo
+        ## esta imagem em específico tem de ser enviada para o registry
+        image: registry.deti:5000/billsdivider/bdbd-mongo:15062022
+        env:
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: miguel
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: miguel
+        ports:
+        - containerPort: 27017
+          name: mongo
+        volumeMounts:
+          - name: mongo-persistent-storage
+            mountPath: /var/lib/mongodb
+      volumes:
+        - name: mongo-persistent-storage
+          persistentVolumeClaim:
+            claimName: mongo-pv-claim
+
+# Create api deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: mikenogs
+spec:
+  #replicas: 3
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api
+        image: registry.deti:5000/billsdivider/bdapi:v1
+        ports:
+          - containerPort: 3000
+
+# Create nginx deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: mikenogs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - image: registry.deti:5000/billsdivider/nginx-proxy-bdapi:v1
+          name: nginx
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+
+# Creat database service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bdauth-mongo
+  namespace: mikenogs
+spec:
+  ports:
+  - port: 27017
+    protocol: TCP
+    name: bdauth-mongo
+  selector:
+    app: bdauth-db
+  type: NodePort
+
+# Create api service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api
+  namespace: mikenogs
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+  selector:
+    app: api
+
+# Create nginx service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  namespace: mikenogs
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: nginx
