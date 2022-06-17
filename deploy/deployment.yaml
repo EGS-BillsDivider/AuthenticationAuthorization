@@ -33,7 +33,7 @@ spec:
       containers:
       - name: mongo
         ## esta imagem em específico tem de ser enviada para o registry
-        image: registry.deti:5000/billsdivider/bdbd-mongo:15062022
+        image: registry.deti:5000/billsdivider/bdbd-mongo:16062022
         env:
         - name: MONGO_INITDB_ROOT_PASSWORD
           value: miguel
@@ -69,7 +69,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: registry.deti:5000/billsdivider/bdapi:v1
+        image: registry.deti:5000/billsdivider/bdapi:16062022 
         ports:
           - containerPort: 3000
 
@@ -92,7 +92,7 @@ spec:
         app: nginx
     spec:
       containers:
-        - image: registry.deti:5000/billsdivider/nginx-proxy-bdapi:v1
+        - image: registry.deti:5000/billsdivider/nginx-proxy-bdapi:16062022 
           name: nginx
           ports:
             - containerPort: 80
