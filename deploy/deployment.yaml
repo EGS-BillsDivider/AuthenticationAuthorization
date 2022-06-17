@@ -67,7 +67,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: registry.deti:5000/billsdivider/bdapi:26062022 
+        image: registry.deti:5000/billsdivider/bdapi:28062022 
         ports:
           - containerPort: 3000
 
@@ -102,15 +102,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: bdauth-mongo
+  name: bdbd-mongo
   namespace: mikenogs
 spec:
   ports:
   - port: 27017
     protocol: TCP
-    name: bdauth-mongo
+    name: bdbd-mongo
   selector:
-    app: bdauth-db
+    app: bdbd-mongo
   type: NodePort
 
 # Create api service
