@@ -1,12 +1,14 @@
 
-#To build: sudo docker build -t registry.deti:5000/billsdivider/bdbd-mongo:16062022 -f deploy/Dockerfile.db .
-#To add to registry: sudo docker push registry.deti:5000/billsdivider/bdbd-mongo:16062022
+#To build: sudo docker build -t registry.deti:5000/billsdivider/bdbd-mongo:17062022 -f deploy/Dockerfile.db .
+#To add to registry: sudo docker push registry.deti:5000/billsdivider/bdbd-mongo:17062022
 
 FROM mongo:4.4
 
 MAINTAINER Miguel Nogueira
 
 LABEL version="1.0"
+
+RUN echo "fhhff"
 
 ADD deploy/init-mongo.js /docker-entrypoint-initdb.d
 
