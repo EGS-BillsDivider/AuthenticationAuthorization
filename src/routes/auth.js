@@ -42,20 +42,26 @@ router.post('/login', async (req, res) => {
     
     //Validate login
     const {error} = loginValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if(error) return res.status(401).send(error.details[0].message);
 
     // Check if account doesnt exists
     const user = await User.findOne({email: req.body.email});
-    if (!user) return res.status(400).send('Email not found!');
+    if (!user) return res.status(401).send('Email not found!');
     
     //Check if password is correct
     const validpassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validpassword) return res.status(400).send('Password not matching!');
+    if (!validpassword) return res.status(401).send('Password not matching!');
 
 
     //CREATE JWT TOKEN
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
     res.header('auth-token', token).send(token);
+
+
+    // redirect to Webapp login endpoint
+    var id = encodeURIComponent(user._id);
+    var aux_token = encodeURIComponent(token);
+    res.status(200).redirect("http://localhost:3000/login?id="+id+"&token="+aux_token)
 
 });
 
