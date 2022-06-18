@@ -11,9 +11,8 @@ module.exports = function (req,res){
         req.user = verified;
         return;
     }catch(err){
-        res.status(20103).json({
+        return res.status(20103).json({
             message: "Invalid Token",
         })
-        return;
     }
 }

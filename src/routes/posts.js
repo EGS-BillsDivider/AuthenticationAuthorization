@@ -4,10 +4,9 @@ const verify = require('./verifytoken');
 
 router.get('/verifyUser', verify, async (req, res) => {
     
-    res.json({
+    return res.status(200).json({
         message: 'Logged In Successfully',
     })
-    res.status(200)
 });
 
 module.exports = router;
