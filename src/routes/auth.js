@@ -29,7 +29,7 @@ router.post('/register', async (req, res) => {
     });
     try{
         const savedUser = await user.save();
-        res.send({user: user._id});
+        // res.send({user: user._id});
         res.status(200).send();
     }catch(err){
         res.status(400).send(err);
@@ -59,9 +59,9 @@ router.post('/login', async (req, res) => {
 
 
     // redirect to Webapp login endpoint
-    var id = encodeURIComponent(user._id);
+    var name = encodeURIComponent(user.name);
     var aux_token = encodeURIComponent(token);
-    res.status(200).redirect("http://localhost:3000/login?id="+id+"&token="+aux_token)
+    res.status(200).redirect("http://billsdivider.egs/login?name="+name+"&token="+aux_token)
 
 });
 
