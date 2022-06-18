@@ -28,7 +28,7 @@ app.get('/login', (req,res) => {
 
 //Route middleware
 app.use('/', authRoute);
-app.use('/posts', postRoute);
+app.use('/', postRoute);
 
 
 app.listen(3000, () => console.log("Server running!"));
