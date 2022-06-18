@@ -27,12 +27,19 @@ router.post('/register', async (req, res) => {
         email: req.body.email,
         password: hashedPassword
     });
+
+    // redirect to Webapp login endpoint
+    var id = encodeURIComponent(user._id);
+    var name = encodeURIComponent(user.name);
+    res.status(200).redirect("http://billsdivider.egs/register?id="+id+"&name="+name);
+
+
     try{
         const savedUser = await user.save();
         // res.send({user: user._id});
-        res.status(200).send();
+        return res.status(200).send();
     }catch(err){
-        res.status(400).send(err);
+        return res.status(400).send(err);
     }
 
     //req.get('/login');
@@ -55,13 +62,14 @@ router.post('/login', async (req, res) => {
 
     //CREATE JWT TOKEN
     const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
-    res.header('auth-token', token).send(token);
+    res.header('auth-token', token);//.send(token);
 
 
     // redirect to Webapp login endpoint
     var id = encodeURIComponent(user._id);
+    var name = encodeURIComponent(user.name);
     var aux_token = encodeURIComponent(token);
-    res.status(200).redirect("http://billsdivider.egs/login?id="+id+"&token="+aux_token)
+    res.status(200).redirect("http://billsdivider.egs/login?id="+id+"&name="+name+"&token="+aux_token);
 
 });
 
