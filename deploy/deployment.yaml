@@ -67,7 +67,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: registry.deti:5000/billsdivider/bdapi:04072022 
+        image: registry.deti:5000/billsdivider/bdapi:05072022 
         ports:
           - containerPort: 3000
 

@@ -1,5 +1,5 @@
-#To build: sudo docker build -t registry.deti:5000/billsdivider/bdapi:04072022  -f deploy/Dockerfile.api .
-#To add to registry: sudo docker push registry.deti:5000/billsdivider/bdapi:04072022 
+#To build: sudo docker build -t registry.deti:5000/billsdivider/bdapi:05072022  -f deploy/Dockerfile.api .
+#To add to registry: sudo docker push registry.deti:5000/billsdivider/bdapi:05072022 
 
 FROM node:18
 
