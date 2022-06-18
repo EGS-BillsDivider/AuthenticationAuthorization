@@ -59,9 +59,9 @@ router.post('/login', async (req, res) => {
 
 
     // redirect to Webapp login endpoint
-    var name = encodeURIComponent(user.name);
+    var id = encodeURIComponent(user._id);
     var aux_token = encodeURIComponent(token);
-    res.status(200).redirect("http://billsdivider.egs/login?name="+name+"&token="+aux_token)
+    res.status(200).redirect("http://billsdivider.egs/login?id="+id+"&token="+aux_token)
 
 });
 
