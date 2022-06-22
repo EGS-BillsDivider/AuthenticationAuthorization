@@ -23,6 +23,21 @@ spec:
   resources:
     requests:
       storage: 500Mi
+
+# Create nginx service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  namespace: egs1
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: nginx
+
 # Create database deployment
 ---
 apiVersion: apps/v1
@@ -143,20 +158,6 @@ spec:
     targetPort: 3000
   selector:
     app: api
-
-# Create nginx service
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx
-  namespace: egs1
-spec:
-  ports:
-  - port: 80
-    targetPort: 80
-  selector:
-    app: nginx
 
 # Configure Traefik ingress
 ---
