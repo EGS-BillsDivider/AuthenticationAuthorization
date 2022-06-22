@@ -57,7 +57,7 @@ spec:
       containers:
       - name: mongo
         ## esta imagem em específico tem de ser enviada para o registry
-        image: registry.deti:5000/billsdivider/bdbd-mongo:16062022
+        image: registry.deti:5000/billsdivider/bdbd-mongo:17062022
         env:
         - name: MONGO_INITDB_ROOT_PASSWORD
           valueFrom:

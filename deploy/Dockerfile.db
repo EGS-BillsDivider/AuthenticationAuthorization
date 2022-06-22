@@ -8,8 +8,6 @@ MAINTAINER Miguel Nogueira
 
 LABEL version="1.0"
 
-RUN echo "fhhff"
-
 ADD deploy/init-mongo.js /docker-entrypoint-initdb.d
 
 EXPOSE 27017
