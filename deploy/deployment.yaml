@@ -1,3 +1,14 @@
+#Create secret for database
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: authdb-secrets
+  namespace: egs1
+type: Opaque
+data:
+  dbauth_user: bWlndWVs
+  dbauth_password: bWlndWVs
 # Create mongo persistent claim
 ---
 apiVersion: v1
@@ -34,9 +45,15 @@ spec:
         image: registry.deti:5000/billsdivider/bdbd-mongo:16062022
         env:
         - name: MONGO_INITDB_ROOT_PASSWORD
-          value: miguel
+          valueFrom:
+            secretKeyRef:
+              name: authdb-secrets
+              key: dbauth_password
         - name: MONGO_INITDB_ROOT_USERNAME
-          value: miguel
+          valueFrom:
+            secretKeyRef:
+              name: authdb-secrets
+              key: dbauth_user
         ports:
         - containerPort: 27017
           name: mongo
@@ -67,7 +84,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: registry.deti:5000/billsdivider/bdapi:05072022 
+        image: registry.deti:5000/billsdivider/bdapi:06072022 
         ports:
           - containerPort: 3000
 
